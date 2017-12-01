@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- ============================================ BOOTSTRAP ========================================================================== -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <!-- ===================================================================================================================================== -->
+    <link href="assets/css/style.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- header -->
+    <div class="container-fluid">
+
+        <div class="row" id="header-custom">
+
+            <div class="container">
+
+                <div class="col-xs-8">
+
+                    <div class="page-header">
+                        <h1 id="page-header-text-custom">Chris's Crystal Game!</h1>
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Jumbotron -->
+    <div class="container">
+        <div class="jumbotron">
+
+            <h1>How to play:</h1>
+            <p>Try to get your score to match the target number!
+                <br> The Crystals below have a random value each game; click them to raise your score!
+                <br> If you go over the target, you lose!</p>
+        </div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xs-12">
+
+                    <ul class="nav nav-pills">
+
+                        <li role="presentation" class="active" id="reset-btn">
+                            <a>reset</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Number Display Row -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-xs-3">
+                <h2>
+
+                    <h2>Target:</h2>
+
+                </h2>
+            </div>
+
+            <div class="col-xs-3">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-body" id="goal-count">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3">
+                <h2>
+
+                    Score:
+
+                </h2>
+            </div>
+
+            <div class="col-xs-3">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-body" id="score-count">
+                        
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!-- Button Row -->
+
+        <div class="row">
+
+            <div class="col-xs-3">
+
+                <button type="button" id="button1" class="btn btn-default" aria-label="Left Align">
+
+                    <img src="assets/images/img0.png">
+                </button>
+            </div>
+
+            <div class="col-xs-3">
+
+                <button type="button" id="button2" class="btn btn-default" aria-label="Left Align">
+
+                    <img src="assets/images/img0.png">
+                </button>
+            </div>
+
+            <div class="col-xs-3">
+
+                <button type="button" id="button3" class="btn btn-default" aria-label="Left Align">
+
+                    <img src="assets/images/img0.png">
+                </button>
+            </div>
+
+            <div class="col-xs-3">
+
+                <button type="button" id="button4" class="btn btn-default" aria-label="Left Align">
+
+                    <img src="assets/images/img0.png">
+                </button>
+            </div>
+
+        </div>
+        <!-- score row -->
+        <div class="row">
+            <div class="col-xs-3">
+                <h2>
+
+                    Wins:
+
+                </h2>
+            </div>
+            <div class="col-xs-3">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-body" id="win-count">
+                        0
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3">
+                <h2>
+
+                    Losses:
+
+                </h2>
+            </div>
+
+            <div class="col-xs-3">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-body" id="loss-count">
+                        0
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="assets/javascript/game.js" type="text/javascript"></script>
+</body>
+
+</html>
