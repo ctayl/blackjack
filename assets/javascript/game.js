@@ -2,20 +2,22 @@
 var game = {
     wins: 0,
     losses: 0,
-    goal: 0,
-    scoreCount: 0,
+    dealerHand: 0,
+    cardOne: 0,
+    cardTwo: 0,
+    playerHand: 0,
     buttonValues: [],
     images: [],
     imageOptions: ["img0.png", "img1.png", "img2.png", "img3.png"],
     // generates and returns random number
     rng: function () {
-        return Math.floor(Math.random() * 12) + 1;
+        return Math.floor(Math.random() * 13) + 1;
     },
 
     // resets game and adds one to wins
     win: function () {
-        $("#score-count").text(game.scoreCount);
-        alert("you win");
+        $("#score-count").text(game.playerHand);
+        // alert("you win");
         setTimeout(game.reset, 1000);
         game.wins++;
         $("#win-count").text(game.wins);
@@ -23,8 +25,8 @@ var game = {
 
     // resets game and adds one to losses
     lose: function () {
-        $("#score-count").text(game.scoreCount);
-        alert("you lose");
+        $("#score-count").text(game.playerHand);
+        // alert("you lose");
         setTimeout(game.reset, 1000);
         game.losses++;
         $("#loss-count").text(game.losses);
@@ -41,78 +43,114 @@ var game = {
 
     },
 
+    // draws random card
+    draw: function () {
+        return (Math.floor(Math.random() * (13 - 1) + 1));
+    },
+
     // reset game
     reset: function () {
 
-        // resets all game parameters
-
-        // resets button images
-        $(".btn-default").html("<img src='assets/images/img0.png'>");
-
-        // sets a new goal
-        game.goal = Math.floor(Math.random() * (49 - 19) + 19);
-
-        // pushes goal to html
-        $("#goal-count").text(game.goal);
-
         // resets score
-        game.scoreCount = 0;
-        $("#score-count").text(game.scoreCount);
+        game.playerHand = 0;
 
-        // creates new button values 
-        game.buttonValues = [];
-        for (i = 0; i < 4; i++) {
-            game.buttonValues.push(game.rng());
+        $("#dealerHand-total").text("");
+
+        // deals new hand
+        game.dealHand();
+        $("#score-count").text(game.playerHand);
+
+        // deals dealer hand 
+        game.dealerDeal();
+
+    },
+
+    dealHand: function () {
+        var playerCardOne = game.draw();
+        var playerCardTwo = game.draw();
+        game.playerHand = playerCardOne + playerCardTwo;
+        if (game.playerHand > 21) {
+            game.dealHand();
         }
-        //    
+    },
 
-        
+    dealerDeal: function () {
+        // sets dealers hand
 
-        // assigns values to buttons while checking for, and eliminating, redundancy
+        // draws first card
+        game.cardOne = game.draw();
 
-        // ==================== assigns value to button 0 ====================
-        $("#button1").attr("value", game.buttonValues[0]);
+        // draws second card
+        game.cardTwo = game.draw();
 
-        // ==================== assigns value to button 1 ====================
-        $("#button2").attr("value", game.buttonValues[1]);
+        // deals a new dealer hand if dealerhand is over 21
+        game.dealerHand = game.cardOne + game.cardTwo;
+        console.log(game.cardOne, game.cardTwo);
+        if (game.dealerHand > 21) {
+            game.dealerHand = 0;
+            console.log("ovr");
+            game.dealerDeal();
+        } else if (game.dealerHand < 17) {
 
-        // checks if the new value of button 1 is the same as the value of button 0
-        if (game.buttonValues[1] == game.buttonValues[0]) {
+            // var newCard = game.draw();
+            // game.dealerHand = game.dealerHand + newCard;
+            console.log("draw again");
+            game.dealerHand = game.dealerHand + game.draw();
+            if (game.dealerHand > 21) {
+                game.dealerHand = 0;
+                console.log("ovr");
+                game.dealerDeal();
+            } else if (game.dealerHand < 17) {
 
-            // reassigns values until redundancy is eliminated
-            game.buttonValues[1] = (game.rng());
-            $("#button2").attr("value", game.buttonValues[1]);
+                // var newCard = game.draw();
+                // game.dealerHand = game.dealerHand + newCard;
+                console.log("draw second");
+                game.dealerHand = game.dealerHand + game.draw();
+                if (game.dealerHand > 21) {
+                    game.dealerHand = 0;
+                    console.log("ovr");
+                    game.dealerDeal();
+                } else if (game.dealerHand < 17) {
+
+                    // var newCard = game.draw();
+                    // game.dealerHand = game.dealerHand + newCard;
+                    console.log("draw third");
+                    game.dealerHand = game.dealerHand + game.draw();
+                    if (game.dealerHand > 21) {
+                        game.dealerHand = 0;
+                        console.log("ovr");
+                        game.dealerDeal();
+                    }
+                }
+            }
 
         }
 
-        // ==================== assigns value to button 2 ====================
-        $("#button3").attr("value", game.buttonValues[2]);
+        // pushes dealerHand to html
+        console.log(game.dealerHand);
+        $("dealerHand-total").text(game.dealerHand);
+    },
 
-        // checks if the new value of button 2 is the same as the value of button 1 or button 0
-        if (game.buttonValues[2] == game.buttonValues[1] || game.buttonValues[2] == game.buttonValues[0]) {
+    // hit me ;)
+    hitMe: function () {
+        // var card = game.draw();
+        console.log("test");
+        var hitCard = game.draw();
+        console.log(hitCard);
+        game.playerHand = game.playerHand + hitCard;
+        $("#score-count").text(game.playerHand);
+        $("#dealerHand-total").text(game.dealerHand);
+        if (game.playerHand > 21) {
 
-            // reassigns values until redundancy is eliminated
-            game.buttonValues[2] = (game.rng());
-            $("#button3").attr("value", game.buttonValues[2]);
+            // lose game
+            game.lose();
+        } else if (game.playerHand > game.dealerHand) {
+
+            // win game
+            game.win();
+
 
         }
-
-        // ==================== assigns value to button 3 ====================
-        $("#button4").attr("value", game.buttonValues[3]);
-
-        // checks if the new value of button 3 is the same as the value of button 2, button 1, or button 0
-        if (game.buttonValues[3] == game.buttonValues[2] || game.buttonValues[3] == game.buttonValues[1] || game.buttonValues[3] == game.buttonValues[0]) {
-
-            // reassigns values until redundancy is eliminated
-            game.buttonValues[3] = (game.rng());
-            $("#button4").attr("value", game.buttonValues[3]);
-
-        }
-
-        // dev console.log
-        console.log(game.buttonValues);
-        // 
-
     },
 }
 
@@ -120,42 +158,56 @@ var game = {
 game.reset();
 
 // when a button is clicked
-$("button").click(function () {
+// $("button").click(function () {
 
-    // get the buttons value 
-    let value = $(this).val();
+//     // get the buttons value 
+//     let value = $(this).val();
 
-    // add the value to score 
-    game.scoreCount = (parseInt(value)) + (parseInt(game.scoreCount))
+//     // add the value to score 
+//     game.playerHand = (parseInt(value)) + (parseInt(game.playerHand));
 
-    // update the score 
-    $("#score-count").text(game.scoreCount);
+//     // update the score 
+//     $("#score-count").text(game.playerHand);
 
-    if ($(this).val()) {
-        $(this).text($(this).val());
-    }
+//     if ($(this).val()) {
+//         $(this).text($(this).val());
+//     }
 
-    // check if the score equals the goal (win condition)
-    if (game.scoreCount == game.goal) {
+//     if (game.playerHand > 21) {
+
+//         // lose game
+//         game.lose();
+
+//     }
+// });
+
+// when reset button is clicked
+$("#reset-btn").click(function () {
+    // check if score exceeds 21 (loss condition one)
+
+        game.lose();
+
+});
+
+$("#stay-btn").click(function () {
+    // check if score exceeds 21 (loss condition one)
+
+    if (game.playerHand <= game.dealerHand) {
+
+        // lose game
+        game.lose();
+
+        // check if the score equals the dealerHand (win condition)
+    } else if (game.playerHand > game.dealerHand) {
 
         // win game
         game.win();
 
 
-    } else {
-        // check if score exceeds goal (loss condition)
-        if (game.scoreCount > game.goal) {
-
-            // lose game
-            game.lose();
-        }
     }
 });
 
-// when reset button is clicked
-$("#reset-btn").click(function () {
+$("#hit-me").click(function () {
 
-    // reset game
-    game.reset();
-    game.winLossReset();
+    game.hitMe();
 });
